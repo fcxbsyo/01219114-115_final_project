@@ -72,3 +72,33 @@ class Game:
                 missile.setheading(self.player.heading())
                 missile.state = "fire"
                 break
+
+    def activate_power(self, ball):
+        power = ball.power
+        if power == "increase_ball":
+            for _ in range(3):
+                new_ball = sprites.Ball()
+                self.balls.append(new_ball)
+        elif power == "freeze":
+            for asteroid in self.asteroids:
+                asteroid.speed = 0
+            self.wn.ontimer(lambda: self.set_asteroid_speed(self.asteroids), 3000)
+        elif power == "deflect":
+            for missile in self.missiles:
+                if missile.state == "fire":
+                    missile.setheading(missile.heading() + 180)
+        elif power == "explode":
+            for asteroid in self.asteroids:
+                if ball.distance(asteroid) < 50:
+                    heading = random.randint(0, 260)
+                    distance = random.randint(600, 800)
+                    asteroid.setheading(heading)
+                    asteroid.fd(distance)
+                    asteroid.setheading(sprites.get_heading_to(self.player, asteroid))
+                    asteroid.speed += 0.01
+                    self.player.score += 10
+                    self.pen.clear()
+                    self.pen.write("Score: {}".format(self.player.score), False, align="center", font=(
+                        "Monospace", 24, "normal"))
+        ball.hideturtle()
+        self.balls.remove(ball)
