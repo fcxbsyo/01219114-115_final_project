@@ -2,6 +2,7 @@ import turtle
 import random
 import sys
 import time
+import csv
 
 from sound_manager import SoundManager
 import sprites
@@ -268,3 +269,40 @@ class Game:
             ball.hideturtle()
         for asteroid in self.asteroids:
             asteroid.hideturtle()
+
+    def display_scoreboard(self):
+        try:
+            with open('scoreboard.csv', 'r') as csvfile:
+                reader = csv.reader(csvfile)
+                next(reader)
+                scores = list(reader)
+
+                scores.sort(key=lambda x: int(x[1]), reverse=True)
+
+                self.pen.goto(0, 100)
+                self.pen.write("Scoreboard", align="center", font=("Monospace", 24, "normal"))
+                y_pos = 50
+                for i in range(min(5, len(scores))):
+                    self.pen.goto(0, y_pos)
+                    self.pen.write(f"{i + 1}. {scores[i][0]}: {scores[i][1]}", align="center", font=("Monospace", 18,
+                                                                                                     "normal"))
+                    y_pos -= 30
+
+                current_player_index = None
+                for i, row in enumerate(scores):
+                    if row[0] == self.player_name:
+                        current_player_index = i
+                        break
+
+                if current_player_index is not None:
+                    self.pen.goto(0, y_pos)
+                    self.pen.write(f"Your Rank: {current_player_index + 1}, Score: {scores[current_player_index][1]}",
+                                   align="center", font=("Monospace", 18, "normal"))
+
+        except FileNotFoundError:
+            self.pen.write("No scoreboard data found.", align="center", font=("Monospace", 24, "normal"))
+        self.wn.bgpic("img/score_screen.gif")
+        self.wn.onkey(self.exit_game, "x")
+        self.wn.onkey(self.go_back_to_start_screen, "s")
+        self.sound_manager.play_click()
+        self.wn.listen()
