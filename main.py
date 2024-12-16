@@ -123,3 +123,20 @@ class Game:
 
         self.sound_manager.play_click()
         self.game_loop()
+
+    def pause_game(self):
+        self.sound_manager.play_click()
+
+        self.game_paused = True
+        self.hide_game_objects()
+        self.wn.update()
+
+        # Hide the score during the pause screen
+        self.pen.hideturtle()
+        self.pen.clear()  # Clear any existing score display
+
+        self.wn.bgpic("img/pause_screen.gif")
+        self.wn.onkey(self.resume_game, "c")
+        self.wn.onkey(self.reset_game, "r")
+        self.wn.onkey(self.exit_game, "x")
+        self.wn.listen()
