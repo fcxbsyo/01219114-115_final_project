@@ -376,3 +376,23 @@ class Game:
                 self.pen.write("Score: {}".format(self.player.score), False, align="center", font=("Monospace", 24,
                                                                                                    "normal"))
                 break
+
+    def handle_game_over(self):
+        if self.game_over:
+            self.wn.bgpic("img/end.gif")
+            self.player.hideturtle()
+            self.hide_game_objects()
+            self.wn.update()
+            save_score(self.player_name, self.player.score)
+
+            self.wn.onkey(None, "space")
+            self.wn.onkey(None, "s")
+            self.wn.onkey(None, "Left")
+            self.wn.onkey(None, "Right")
+            self.wn.onkey(None, "Escape")
+
+            self.wn.onkey(self.display_scoreboard, "g")
+            self.wn.onkey(sys.exit, "x")
+            self.wn.onkey(self.go_back_to_start_screen, "s")
+            self.wn.listen()
+            self.game_over = False
