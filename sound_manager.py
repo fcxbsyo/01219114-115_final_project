@@ -25,3 +25,6 @@ class SoundManager:
 
     def set_pause_state(self, is_paused):
         self.is_paused = is_paused
+
+    def play_power_up(self):
+        self.power_up_sound.play()
