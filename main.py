@@ -56,3 +56,9 @@ class Game:
                              (-5, 4), (-1, 8))
         self.wn.register_shape("player", player_vertices)
         self.wn.register_shape("asteroid", asteroid_vertices)
+
+    def rotate_left(self):
+        self.player.lt(20)
+
+    def rotate_right(self):
+        self.player.rt(20)
