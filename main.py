@@ -396,3 +396,24 @@ class Game:
             self.wn.onkey(self.go_back_to_start_screen, "s")
             self.wn.listen()
             self.game_over = False
+
+    def game_loop(self):
+        self.game_over = False
+        self.wn.onkeypress(self.rotate_left, "Left")
+        self.wn.onkeypress(self.rotate_right, "Right")
+        self.wn.onkey(self.fire_missile, "space")
+        self.wn.onkey(self.display_scoreboard, "g")
+        self.wn.onkey(self.pause_game, "Escape")
+
+        while True:
+            if self.game_over:
+                self.handle_game_over()
+                break
+
+            if self.game_paused:
+                self.pause_game()
+            else:
+                self.wn.update()
+                self.update_positions()
+                self.check_collisions()
+            self.wn.update()
