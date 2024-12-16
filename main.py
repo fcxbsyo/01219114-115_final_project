@@ -102,3 +102,24 @@ class Game:
                         "Monospace", 24, "normal"))
         ball.hideturtle()
         self.balls.remove(ball)
+
+    def start_game(self):
+        if not self.game_started or self.game_over:
+            self.reset_game()
+            self.player_name = turtle.textinput("Player Name", "Enter your name:")
+            if self.player_name is None:
+                self.player_name = "Unknown"
+            self.game_started = True
+            self.wn.listen()
+
+        self.game_over = False
+        self.game_paused = False
+        self.wn.bgpic("img/background.gif")
+
+        self.wn.onkeypress(self.rotate_left, "Left")
+        self.wn.onkeypress(self.rotate_right, "Right")
+        self.wn.onkeypress(self.fire_missile, "space")
+        self.wn.onkey(self.pause_game, "Escape")
+
+        self.sound_manager.play_click()
+        self.game_loop()
