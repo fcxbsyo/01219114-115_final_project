@@ -259,3 +259,12 @@ class Game:
             asteroid.speed = random.randint(2, 3) / 50
             asteroid.showturtle()
         self.wn.update()
+
+    def hide_game_objects(self):
+        self.player.hideturtle()
+        for missile in self.missiles:
+            missile.hideturtle()
+        for ball in self.balls:
+            ball.hideturtle()
+        for asteroid in self.asteroids:
+            asteroid.hideturtle()
