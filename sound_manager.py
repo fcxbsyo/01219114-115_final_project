@@ -15,3 +15,6 @@ class SoundManager:
 
     def play_missile(self):
         self.missile_sound.play()
+
+    def play_explosion(self):
+        self.explosion_sound.play()
