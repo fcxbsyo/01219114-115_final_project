@@ -1,5 +1,6 @@
 import turtle
 import random
+import sys
 
 from sound_manager import SoundManager
 import sprites
@@ -187,3 +188,8 @@ class Game:
         self.sound_manager.play_click()
         # Resume game
         self.resume_game()
+
+    def exit_game(self):
+        """Exits the game."""
+        self.wn.bye()  # Close the turtle graphics window
+        sys.exit()
