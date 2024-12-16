@@ -140,3 +140,31 @@ class Game:
         self.wn.onkey(self.reset_game, "r")
         self.wn.onkey(self.exit_game, "x")
         self.wn.listen()
+
+    def resume_game(self):
+        self.game_paused = False
+
+        # Show game objects
+        self.player.showturtle()
+        self.pen.showturtle()  # Show the score display when resuming gameplay
+        self.pen.write("Score: {}".format(self.player.score), False, align="center", font=("Monospace", 24, "normal"))
+
+        for missile in self.missiles:
+            if missile.state == "fire":
+                missile.showturtle()
+        for ball in self.balls:
+            if ball.state == "fire":
+                ball.showturtle()
+        for asteroid in self.asteroids:
+            asteroid.showturtle()
+
+        self.wn.bgpic("img/background.gif")
+        self.wn.onkey(self.pause_game, "p")  # Re-bind 'p' to pause
+        self.wn.onkey(None, "c")
+        self.wn.onkey(None, "r")
+        self.wn.onkey(None, "s")
+        self.wn.onkey(None, "x")
+        self.wn.update()
+        self.wn.listen()
+
+        self.update_positions()
