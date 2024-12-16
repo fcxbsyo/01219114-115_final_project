@@ -22,3 +22,6 @@ class SoundManager:
     def play_click(self):
         if not self.is_paused:
             self.click_sound.play()
+
+    def set_pause_state(self, is_paused):
+        self.is_paused = is_paused
