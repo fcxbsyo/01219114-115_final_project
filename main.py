@@ -194,3 +194,10 @@ class Game:
         self.wn.bgpic("img/how_to_play_screen.gif")
         self.wn.onkey(self.go_back_from_instructions, "Escape")
         self.wn.listen()
+
+    def go_back_from_instructions(self):
+        self.wn.bgpic("img/start_screen.gif")
+        self.wn.onkey(self.start_game, "space")
+        self.wn.onkey(self.show_instructions, "s")
+        self.wn.onkey(self.exit_game, "x")
+        self.wn.listen()
