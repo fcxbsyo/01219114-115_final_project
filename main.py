@@ -35,3 +35,11 @@ class Game:
         self.wn.onkey(self.start_game, "space")
         self.wn.onkey(self.show_instructions, "s")
         self.wn.listen()
+
+    @staticmethod
+    def create_pen():
+        pen = sprites.Sprite()
+        pen.color("white")
+        pen.hideturtle()  # Hide the score initially
+        pen.goto(0, 250)
+        return pen
