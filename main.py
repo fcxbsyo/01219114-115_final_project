@@ -1,4 +1,5 @@
 import turtle
+import random
 
 from sound_manager import SoundManager
 import sprites
@@ -43,3 +44,8 @@ class Game:
         pen.hideturtle()  # Hide the score initially
         pen.goto(0, 250)
         return pen
+
+    @staticmethod
+    def set_asteroid_speed(ast):
+        for asteroid in ast:
+            asteroid.speed = random.randint(2, 3) / 50
