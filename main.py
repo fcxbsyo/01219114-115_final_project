@@ -49,3 +49,10 @@ class Game:
     def set_asteroid_speed(ast):
         for asteroid in ast:
             asteroid.speed = random.randint(2, 3) / 50
+
+    def register_shapes(self):
+        player_vertices = ((0, 15), (-15, 0), (-18, 5), (-18, -5), (0, 0), (18, -5), (18, 5), (15, 0))
+        asteroid_vertices = ((0, 10), (5, 7), (3, 3), (10, 0), (7, 4), (8, -6), (0, -10), (-5, -5), (-7, -7), (-10, 0),
+                             (-5, 4), (-1, 8))
+        self.wn.register_shape("player", player_vertices)
+        self.wn.register_shape("asteroid", asteroid_vertices)
