@@ -12,3 +12,6 @@ class SoundManager:
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.5)
         self.is_paused = False
+
+    def play_missile(self):
+        self.missile_sound.play()
