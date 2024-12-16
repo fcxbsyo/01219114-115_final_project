@@ -1,6 +1,7 @@
 import turtle
 import random
 import sys
+import time
 
 from sound_manager import SoundManager
 import sprites
@@ -222,3 +223,14 @@ class Game:
         self.wn.listen()
         self.reset_game_objects()
         self.wn.update()
+
+    def go_back(self):
+        self.hide_game_objects()
+        self.wn.update()
+        time.sleep(0.1)
+        if self.game_paused:
+            self.pause_game()
+        else:
+            self.go_back_to_start_screen()
+
+        self.sound_manager.play_click()
