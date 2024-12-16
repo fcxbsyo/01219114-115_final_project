@@ -62,3 +62,13 @@ class Game:
 
     def rotate_right(self):
         self.player.rt(20)
+
+    def fire_missile(self):
+        for missile in self.missiles:
+            if missile.state == "ready":
+                self.sound_manager.play_missile()
+                missile.goto(0, 0)
+                missile.showturtle()
+                missile.setheading(self.player.heading())
+                missile.state = "fire"
+                break
