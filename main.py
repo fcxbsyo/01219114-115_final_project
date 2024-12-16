@@ -132,9 +132,8 @@ class Game:
         self.hide_game_objects()
         self.wn.update()
 
-        # Hide the score during the pause screen
         self.pen.hideturtle()
-        self.pen.clear()  # Clear any existing score display
+        self.pen.clear()
 
         self.wn.bgpic("img/pause_screen.gif")
         self.wn.onkey(self.resume_game, "c")
@@ -145,9 +144,8 @@ class Game:
     def resume_game(self):
         self.game_paused = False
 
-        # Show game objects
         self.player.showturtle()
-        self.pen.showturtle()  # Show the score display when resuming gameplay
+        self.pen.showturtle()
         self.pen.write("Score: {}".format(self.player.score), False, align="center", font=("Monospace", 24, "normal"))
 
         for missile in self.missiles:
@@ -160,8 +158,7 @@ class Game:
             asteroid.showturtle()
 
         self.wn.bgpic("img/background.gif")
-        self.wn.onkey(self.pause_game, "p")  # Re-bind 'p' to pause
-        self.wn.onkey(None, "c")
+        self.wn.onkey(self.pause_game, "p")
         self.wn.onkey(None, "r")
         self.wn.onkey(None, "s")
         self.wn.onkey(None, "x")
@@ -173,7 +170,7 @@ class Game:
     def reset_game(self):
         self.game_over = False
         self.game_paused = False
-        self.wn.bgpic("img/background.gif")  # Set background to the game screen
+        self.wn.bgpic("img/background.gif")
         self.reset_game_objects()
         # Reset player
         self.player.goto(0, 0)
@@ -190,6 +187,10 @@ class Game:
         self.resume_game()
 
     def exit_game(self):
-        """Exits the game."""
-        self.wn.bye()  # Close the turtle graphics window
+        self.wn.bye()
         sys.exit()
+
+    def show_instructions(self):
+        self.wn.bgpic("img/how_to_play_screen.gif")
+        self.wn.onkey(self.go_back_from_instructions, "Escape")
+        self.wn.listen()
