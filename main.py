@@ -234,3 +234,28 @@ class Game:
             self.go_back_to_start_screen()
 
         self.sound_manager.play_click()
+
+    def reset_game_objects(self):
+        for missile in self.missiles:
+            missile.hideturtle()
+            missile.state = "ready"
+
+        for ball in self.balls:
+            ball.hideturtle()
+            ball.state = "ready"
+
+        self.balls.clear()
+        for _ in range(5):
+            ball = sprites.Ball()
+            self.balls.append(ball)
+
+        for asteroid in self.asteroids:
+            heading = random.randint(0, 260)
+            distance = random.randint(300, 400)
+            asteroid.goto(0, 0)
+            asteroid.setheading(heading)
+            asteroid.fd(distance)
+            asteroid.setheading(sprites.get_heading_to(self.player, asteroid))
+            asteroid.speed = random.randint(2, 3) / 50
+            asteroid.showturtle()
+        self.wn.update()
