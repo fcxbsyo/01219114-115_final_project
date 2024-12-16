@@ -7,7 +7,7 @@ class SoundManager:
         self.missile_sound = pygame.mixer.Sound("sound/missile.wav")
         self.explosion_sound = pygame.mixer.Sound("sound/explosion.wav")
         self.click_sound = pygame.mixer.Sound("sound/click.wav")
-        self.power_up_sound = pygame.mixer.Sound("sound/powerup.wav")  # Renamed to power_up_sound
+        self.power_up_sound = pygame.mixer.Sound("sound/powerup.wav")
         pygame.mixer.music.load("sound/background_music.mp3")
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.5)
@@ -18,3 +18,7 @@ class SoundManager:
 
     def play_explosion(self):
         self.explosion_sound.play()
+
+    def play_click(self):
+        if not self.is_paused:
+            self.click_sound.play()
