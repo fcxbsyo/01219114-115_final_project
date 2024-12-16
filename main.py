@@ -306,3 +306,32 @@ class Game:
         self.wn.onkey(self.go_back_to_start_screen, "s")
         self.sound_manager.play_click()
         self.wn.listen()
+
+    def update_positions(self):
+        if self.game_paused or self.game_over:
+            return
+        self.player.goto(self.player.xcor(), self.player.ycor())
+
+        for missile in self.missiles:
+            if missile.state == "fire":
+                missile.fd(missile.speed)
+                if (missile.xcor() > 300 or missile.xcor() < -300 or
+                        missile.ycor() > 300 or missile.ycor() < -300):
+                    missile.hideturtle()
+                    missile.state = "ready"
+
+        for ball in self.balls:
+            if ball.state == "ready":
+                ball.goto(random.randint(-200, 200), random.randint(-200, 200))
+                ball.showturtle()
+                ball.setheading(random.randint(0, 360))
+                ball.state = "fire"
+            elif ball.state == "fire":
+                ball.fd(ball.speed)
+                if ball.xcor() > 290 or ball.xcor() < -290:
+                    ball.setheading(180 - ball.heading())
+                if ball.ycor() > 290 or ball.ycor() < -290:
+                    ball.setheading(-ball.heading())
+
+        for asteroid in self.asteroids:
+            asteroid.fd(asteroid.speed)
