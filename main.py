@@ -335,3 +335,44 @@ class Game:
 
         for asteroid in self.asteroids:
             asteroid.fd(asteroid.speed)
+
+    def check_collisions(self):
+        for asteroid in self.asteroids:
+            for missile in self.missiles:
+                if asteroid.distance(missile) < 20:
+                    self.sound_manager.play_explosion()
+                    heading = random.randint(0, 260)
+                    distance = random.randint(600, 800)
+                    asteroid.setheading(heading)
+                    asteroid.fd(distance)
+                    asteroid.setheading(sprites.get_heading_to(self.player, asteroid))
+                    asteroid.speed += 0.01
+
+                    missile.goto(600, 600)
+                    missile.hideturtle()
+                    missile.state = "ready"
+                    self.player.score += 10
+                    self.pen.clear()
+                    self.pen.write("Score: {}".format(self.player.score), False, align="center", font=("Monospace", 24,
+                                                                                                       "normal"))
+                    break
+
+            if asteroid.isvisible():
+                for ball in self.balls:
+                    if asteroid.distance(ball) < 20:
+                        self.sound_manager.play_power_up()
+                        self.activate_power(ball)
+                        break
+
+            if asteroid.distance(self.player) < 20:
+                self.game_over = True
+                heading = random.randint(0, 260)
+                distance = random.randint(600, 800)
+                asteroid.setheading(heading)
+                asteroid.fd(distance)
+                asteroid.setheading(sprites.get_heading_to(self.player, asteroid))
+                asteroid.speed += 0.005
+                self.pen.clear()
+                self.pen.write("Score: {}".format(self.player.score), False, align="center", font=("Monospace", 24,
+                                                                                                   "normal"))
+                break
