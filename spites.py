@@ -14,3 +14,14 @@ class Player(Sprite):
         self.color("white")
         self.shape("player")
         self.score = 0
+
+
+class Missile(Sprite):
+    def __init__(self):
+        super().__init__()
+        self.color("white")
+        self.shape("circle")
+        self.shapesize(0.3)
+        self.speed = 1
+        self.state = "ready"
+        self.hideturtle()
