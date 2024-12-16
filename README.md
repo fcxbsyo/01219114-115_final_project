@@ -56,7 +56,7 @@ Once you run the game, the following controls are available:
 ## Project Design and Implementation:
 
 ### UML Class Diagram:
-
+https://github.com/fcxbsyo/01219114-115_final_project/blob/main/UML-Diagram.jpg
 
 #### Class Descriptions:
 - Game: The main class controlling the game flow, including starting the game, pausing, displaying instructions, 
