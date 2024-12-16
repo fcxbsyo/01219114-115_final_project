@@ -168,3 +168,22 @@ class Game:
         self.wn.listen()
 
         self.update_positions()
+
+    def reset_game(self):
+        self.game_over = False
+        self.game_paused = False
+        self.wn.bgpic("img/background.gif")  # Set background to the game screen
+        self.reset_game_objects()
+        # Reset player
+        self.player.goto(0, 0)
+        self.player.showturtle()
+        self.player.score = 0
+
+        # Reset score
+        self.pen.clear()
+        self.pen.write("Score: 0", False, align="center", font=("Monospace", 24, "normal"))
+        self.pen.goto(0, 250)
+
+        self.sound_manager.play_click()
+        # Resume game
+        self.resume_game()
