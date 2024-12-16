@@ -201,3 +201,24 @@ class Game:
         self.wn.onkey(self.show_instructions, "s")
         self.wn.onkey(self.exit_game, "x")
         self.wn.listen()
+
+    def go_back_to_start_screen(self):
+        self.game_paused = False
+        self.game_started = False
+        self.game_over = False
+
+        self.hide_game_objects()
+
+        self.player.goto(0, 0)
+        self.player.score = 0
+        self.pen.clear()
+
+        self.wn.bgpic("img/start_screen.gif")
+        self.wn.onkey(self.start_game, "space")
+        self.wn.onkey(self.show_instructions, "s")
+        self.wn.onkey(self.go_back, "Escape")
+        self.sound_manager.play_click()
+
+        self.wn.listen()
+        self.reset_game_objects()
+        self.wn.update()
